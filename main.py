@@ -7,7 +7,8 @@ import time # type: ignore
 from machine import Pin, Timer # type: ignore
 from libs.module_init import Global_Default as MyDefault
 from libs.module_init import Globel_State as MyState
- 
+from libs.module_init import Global_Module as MyModule
+
 usr_led = Pin(25, Pin.OUT)
 
 Counter_1 = 0
@@ -91,7 +92,13 @@ def main():
 # ###############################################################################
 
 if __name__ == "__main__":
-    
+
+    mg_inc = MyModule
+
+    if mg_inc.inc_mcp23017 == True:
+        print("Load I2C-Modul")
+        import libs.module_i2c
+        
     main()      # Start Main $$$
 
 # Normal sollte das Programm hier nie ankommen !

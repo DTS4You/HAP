@@ -8,6 +8,7 @@ class Global_Module:
     inc_ws2812          = False
     inc_decoder         = False
     inc_serial          = False
+    inc_mcp23017        = True
 
 
 class Global_Default:
