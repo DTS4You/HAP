@@ -41,8 +41,8 @@ def main():
     try:
         print("Start")
         while(True):
-            time.sleep(4)
-            print("Run")
+            time.sleep(1)
+            #print("Run")
 
     except KeyboardInterrupt:
         print("-> Keyboard Interrupt")
