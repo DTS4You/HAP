@@ -16,8 +16,7 @@ Counter_2 = 0
 # ==============================================================================
 
 def timer_1_call(tim):
-    global Counter_1
-    mg_state = MyState
+    
     # print("Timer 1 Call")
 
     if Counter_1 == 1:
@@ -31,7 +30,6 @@ def timer_1_call(tim):
 # ==============================================================================
 
 def timer_2_call(tim):
-    global Counter_2
     
     # print("Timer 2 ", Counter_2)
 
@@ -55,8 +53,11 @@ def timer_2_call(tim):
 # ###############################################################################
 
 def main():
+    global mg_def
+    global mg_state
 
     mg_def = MyDefault
+    mg_state = MyState
 
     timer_1 = Timer(-1)
     timer_1.init(period=mg_def.led_blink_period, mode=Timer.PERIODIC, callback=timer_1_call)
