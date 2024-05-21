@@ -4,7 +4,7 @@
 
 import time # type: ignore
 from machine import Pin, Timer # type: ignore
-from module_init import Global_Default as MyDefault
+from libs.module_init import Global_Default as MyDefault
  
 usr_led = Pin(25, Pin.OUT)
 
