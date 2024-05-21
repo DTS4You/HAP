@@ -34,21 +34,31 @@ def timer_1_call(tim):
 def timer_2_call(tim):
     global Counter_2
     # print("Timer 2 ", Counter_2)
-
-    if Counter_2 == 0:
-        print("Step -> 0 - 0 - 0")
-    if Counter_2 == 1:
-        print("Step -> 0 - 0 - 1 ")
-    if Counter_2 == 2:
-        print("Step -> 0 - 1 - 0")
+    led_decode(Counter_2)
     if Counter_2 == 3:
-        print("Step -> 1 - 0 - 0")
         Counter_2 = 0
     else:
         Counter_2 = Counter_2 + 1
 
 
-    
+def led_decode(value):
+    # print(value)
+    if value == 0:
+        MyI2C.gpio.set_output(0, False)
+        MyI2C.gpio.set_output(1, False)
+        MyI2C.gpio.set_output(2, False)
+    if value == 1:
+        MyI2C.gpio.set_output(0, True)
+        MyI2C.gpio.set_output(1, False)
+        MyI2C.gpio.set_output(2, False)
+    if value == 2:
+        MyI2C.gpio.set_output(0, False)
+        MyI2C.gpio.set_output(1, True)
+        MyI2C.gpio.set_output(2, False)
+    if value == 3:
+        MyI2C.gpio.set_output(0, False)
+        MyI2C.gpio.set_output(1, False)
+        MyI2C.gpio.set_output(2, True)
 
 # ###############################################################################
 # ### Function ->                                                             ###
@@ -60,6 +70,9 @@ def main():
 
     mg_def = MyDefault
     mg_state = MyState
+
+    print(mg_def.led_blink_period)
+    print(mg_def.led_step_time)
 
     timer_1 = Timer(-1)
     timer_1.init(period=mg_def.led_blink_period, mode=Timer.PERIODIC, callback=timer_1_call)
@@ -81,6 +94,8 @@ def main():
         timer_1.deinit()
         timer_2.deinit()
         usr_led.value(0)
+        for i in range(0,7):
+            MyI2C.gpio.set_output(i, False)
  
 
     print("=== End of Main ===")
@@ -96,8 +111,8 @@ if __name__ == "__main__":
     mg_inc = MyModule
 
     if mg_inc.inc_i2c == True:
-        print("Load I2C-Modul")
-        import libs.module_i2c
+        print("Load Module -> I2C")
+        import libs.module_i2c as MyI2C
         
     main()      # Start Main $$$
 
