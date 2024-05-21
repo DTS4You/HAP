@@ -33,14 +33,13 @@ def timer_2_call(tim):
     # print("Timer 2 ", Counter_2)
 
     if Counter_2 == 0:
-        print("0 - 0 - 0")
+        print("Step -> 0 - 0 - 0")
     if Counter_2 == 1:
-        print("0 - 0 - 1 ")
+        print("Step -> 0 - 0 - 1 ")
     if Counter_2 == 2:
-        print("0 - 1 - 0")
+        print("Step -> 0 - 1 - 0")
     if Counter_2 == 3:
-        print("1 - 0 - 0")
-    if Counter_2 > 3:
+        print("Step -> 1 - 0 - 0")
         Counter_2 = 0
     else:
         Counter_2 = Counter_2 + 1
