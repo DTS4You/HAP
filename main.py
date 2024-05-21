@@ -13,10 +13,11 @@ usr_led = Pin(25, Pin.OUT)
 Counter_1 = 0
 Counter_2 = 0
 
+
 # ==============================================================================
 
 def timer_1_call(tim):
-    
+    global Counter_1
     # print("Timer 1 Call")
 
     if Counter_1 == 1:
@@ -30,7 +31,7 @@ def timer_1_call(tim):
 # ==============================================================================
 
 def timer_2_call(tim):
-    
+    global Counter_2
     # print("Timer 2 ", Counter_2)
 
     if Counter_2 == 0:
