@@ -5,24 +5,23 @@
 
 class Global_Module:
     
-    inc_ws2812          = True
-    inc_decoder         = True
-    inc_serial          = True
+    inc_ws2812          = False
+    inc_decoder         = False
+    inc_serial          = False
 
 
 class Global_Default:
 
-    blink_freq          = 3.0           # Blink Frequenz
-    
+    led_blink_period    = 300           # Blink-Periode in (ms)
+    led_step_time       = 500           # Animation in (ms)
 
 def main():
 
     print("Start Global Init")
-    mg = Global_WS2812
-    print(mg.numpix_1)
-    print(mg.numpix_2)
-    print(mg.seg_01_strip, mg.seg_01_start, mg.seg_01_count)
-    print(mg.seg_02_strip, mg.seg_02_start, mg.seg_02_count)
+    mg = Global_Default
+    print(mg.led_blink_period)
+    print(mg.led_blink_period)
+ 
 
 
 #------------------------------------------------------------------------------

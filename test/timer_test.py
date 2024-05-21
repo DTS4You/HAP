@@ -4,6 +4,7 @@
 
 import time # type: ignore
 from machine import Pin, Timer # type: ignore
+from libs.module_init import Global_Default as MyDefault
  
 usr_led = Pin(25, Pin.OUT)
 
@@ -27,7 +28,7 @@ def timer_1_call(tim):
 
 def timer_2_call(tim):
     global Counter_2
-
+    
     # print("Timer 2 ", Counter_2)
 
     if Counter_2 == 0:
@@ -50,11 +51,13 @@ def timer_2_call(tim):
 
 def main():
 
+    mg_def = MyDefault
+
     timer_1 = Timer(-1)
-    timer_1.init(period=300, mode=Timer.PERIODIC, callback=timer_1_call)
+    timer_1.init(period=mg_def.led_blink_period, mode=Timer.PERIODIC, callback=timer_1_call)
     
     timer_2 = Timer(-1)
-    timer_2.init(period=1000, mode=Timer.PERIODIC, callback=timer_2_call)
+    timer_2.init(period=mg_def.led_step_time, mode=Timer.PERIODIC, callback=timer_2_call)
 
     try:
         print("Start")
