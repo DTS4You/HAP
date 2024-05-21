@@ -1,7 +1,7 @@
 # Module WS2812 V1.01
 import time
 import libs.module_neopixel as module_neopixel
-from module_init import Global_WS2812 as MyGlobal
+from libs.module_init import Global_WS2812 as MyGlobal
 
 
 class LedState:

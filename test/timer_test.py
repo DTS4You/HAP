@@ -14,17 +14,35 @@ Counter_2 = 0
 
 def timer_1_call(tim):
     global Counter_1
-    Counter_1 = Counter_1 + 1
-    print("Timer 1 ", Counter_1)
-    usr_led.value(Counter_1%2)
- 
+    # print("Timer 1 Call")
 
+    if Counter_1 == 1:
+        usr_led.value(True)
+        Counter_1 = 0
+    else:
+        usr_led.value(False)
+        Counter_1 = Counter_1 + 1
+ 
 # ==============================================================================
 
 def timer_2_call(tim):
     global Counter_2
-    Counter_2 = Counter_2 + 1
-    print("Timer 2 ", Counter_2)
+
+    # print("Timer 2 ", Counter_2)
+
+    if Counter_2 == 0:
+        print("0 - 0 - 0")
+    if Counter_2 == 1:
+        print("0 - 0 - 1 ")
+    if Counter_2 == 2:
+        print("0 - 1 - 0")
+    if Counter_2 == 3:
+        print("1 - 0 - 0")
+    if Counter_2 > 3:
+        Counter_2 = 0
+    else:
+        Counter_2 = Counter_2 + 1
+    
 
 # ###############################################################################
 # ### Function ->                                                             ###
