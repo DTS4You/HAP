@@ -103,7 +103,7 @@ def main():
         timer_1.deinit()
         timer_2.deinit()
         usr_led.value(0)
-        for i in range(0,8):
+        for i in range(0,8):                # Alle Ausgänge aus
             MyI2C.gpio.set_output(i, False)
  
 
