@@ -24,9 +24,14 @@ def timer_1_call(tim):
     if Counter_1 == 1:
         mg_state.led_state = True
         usr_led.value(True)
+        MyI2C.gpio.set_output(4, True)
+        MyI2C.gpio.set_output(5, True)
         Counter_1 = 0
     else:
+        mg_state.led_state = False
         usr_led.value(False)
+        MyI2C.gpio.set_output(4, False)
+        MyI2C.gpio.set_output(5, False)
         Counter_1 = Counter_1 + 1
  
 # ==============================================================================
@@ -71,8 +76,10 @@ def main():
     mg_def = MyDefault
     mg_state = MyState
 
-    print(mg_def.led_blink_period)
-    print(mg_def.led_step_time)
+    #print(mg_def.led_blink_period)
+    #print(mg_def.led_step_time)
+
+    MyI2C.i2c_setup()
 
     timer_1 = Timer(-1)
     timer_1.init(period=mg_def.led_blink_period, mode=Timer.PERIODIC, callback=timer_1_call)
@@ -82,6 +89,8 @@ def main():
 
     try:
         print("Start")
+        MyI2C.gpio.set_output(6, True)      # Motor 1
+        MyI2C.gpio.set_output(7, True)      # Motor 2
         while(True):
             time.sleep(1)
             #print("Run")

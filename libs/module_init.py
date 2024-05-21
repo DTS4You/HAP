@@ -13,8 +13,8 @@ class Global_Module:
 
 class Global_Default:
 
-    led_blink_period    = 300           # Blink-Periode in (ms)
-    led_step_time       = 700          # Animation in (ms)
+    led_blink_period    = 500          # Blink-Periode in (ms)
+    led_step_time       = 200          # Animation in (ms)
 
 
 class Globel_State:
