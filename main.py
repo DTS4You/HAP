@@ -6,6 +6,7 @@
 import time # type: ignore
 from machine import Pin, Timer # type: ignore
 from libs.module_init import Global_Default as MyDefault
+from libs.module_init import Globel_State as MyState
  
 usr_led = Pin(25, Pin.OUT)
 
@@ -16,9 +17,11 @@ Counter_2 = 0
 
 def timer_1_call(tim):
     global Counter_1
+    mg_state = MyState
     # print("Timer 1 Call")
 
     if Counter_1 == 1:
+        mg_state.led_state = True
         usr_led.value(True)
         Counter_1 = 0
     else:
@@ -43,6 +46,8 @@ def timer_2_call(tim):
         Counter_2 = 0
     else:
         Counter_2 = Counter_2 + 1
+
+
     
 
 # ###############################################################################
