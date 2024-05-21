@@ -1,6 +1,6 @@
 ######################################################
 ### Main-Program                                   ###
-### Projekt: Hera-Mission                          ###
+### Projekt: HAP-Messemodell                       ###
 ### Version: 1.00                                  ###
 ######################################################
 from machine import Pin, Timer                              # RaspberryPi Pico2040 -> Hardware-Library
