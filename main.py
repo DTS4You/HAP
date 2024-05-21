@@ -95,7 +95,7 @@ if __name__ == "__main__":
 
     mg_inc = MyModule
 
-    if mg_inc.inc_mcp23017 == True:
+    if mg_inc.inc_i2c == True:
         print("Load I2C-Modul")
         import libs.module_i2c
         
