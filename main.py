@@ -89,8 +89,8 @@ def main():
 
     try:
         print("Start")
-        MyI2C.gpio.set_output(6, True)      # Motor 1
-        MyI2C.gpio.set_output(7, True)      # Motor 2
+        MyI2C.gpio.set_output(6, True)      # Motor 1 an
+        MyI2C.gpio.set_output(7, True)      # Motor 2 an
         while(True):
             time.sleep(1)
             #print("Run")
@@ -103,7 +103,7 @@ def main():
         timer_1.deinit()
         timer_2.deinit()
         usr_led.value(0)
-        for i in range(0,7):
+        for i in range(0,8):
             MyI2C.gpio.set_output(i, False)
  
 
