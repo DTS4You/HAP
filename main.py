@@ -89,10 +89,10 @@ def main():
 
     try:
         print("Start")
-        MyI2C.gpio.set_output(6, True)      # Motor 1 an
-        MyI2C.gpio.set_output(7, True)      # Motor 2 an
         while(True):
             time.sleep(1)
+            MyI2C.gpio.set_output(6, True)      # Motor 1 an
+            MyI2C.gpio.set_output(7, True)      # Motor 2 an
             #print("Run")
 
     except KeyboardInterrupt:
