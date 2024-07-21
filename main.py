@@ -1,7 +1,7 @@
 ######################################################
 ### Main-Program                                   ###
 ### Projekt: HAP-Messemodell                       ###
-### Version: 1.00                                  ###
+### Version: 1.01                                  ###
 ######################################################
 import time # type: ignore
 from machine import Pin, Timer # type: ignore
