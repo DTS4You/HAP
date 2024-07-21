@@ -91,7 +91,7 @@ def main():
     try:
         print("Start")
         while(True):
-            time.sleep(1)
+            time.sleep(2)
             MyI2C.gpio.set_output(6, True)      # Motor 1 an
             MyI2C.gpio.set_output(7, True)      # Motor 2 an
             #print("Run")
