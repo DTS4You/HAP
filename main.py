@@ -1,7 +1,8 @@
 ######################################################
 ### Main-Program                                   ###
 ### Projekt: HAP-Messemodell                       ###
-### Version: 1.01                                  ###
+### Version: 1.02                                  ###
+### - Fernbedienung hinzu                          ###
 ######################################################
 import time # type: ignore
 from machine import Pin, Timer # type: ignore
