@@ -89,6 +89,9 @@ def main():
     timer_2 = Timer(-1)
     timer_2.init(period=mg_def.led_step_time, mode=Timer.PERIODIC, callback=timer_2_call)
 
+    timer_3 = Timer(-1)
+    timer_3.init(period=mg_def.motor_delay_time, mode=Timer.ONE_SHOT, callback=timer_2_call)
+
     try:
         print("Start")
         while(True):

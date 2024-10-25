@@ -15,6 +15,7 @@ class Global_Default:
 
     led_blink_period    = 500          # Blink-Periode in (ms)
     led_step_time       = 200          # Animation in (ms)
+    motor_delay_time    = 2000         # Motor Anlauf-Verzögerung (ms)
 
 
 class Globel_State:
