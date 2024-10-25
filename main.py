@@ -48,6 +48,12 @@ def timer_2_call(tim):
 
 # ==============================================================================
 
+def timer_3_call(tim):
+    MyI2C.gpio.set_output(6, True)      # Motor 1 an
+    MyI2C.gpio.set_output(7, True)      # Motor 2 an
+
+# ==============================================================================
+
 def led_decode(value):
     # print(value)
     if value == 0:
@@ -96,8 +102,7 @@ def main():
         print("Start")
         while(True):
             time.sleep(2)
-            MyI2C.gpio.set_output(6, True)      # Motor 1 an
-            MyI2C.gpio.set_output(7, True)      # Motor 2 an
+            
             #print("Run")
 
     except KeyboardInterrupt:
