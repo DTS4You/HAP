@@ -100,8 +100,8 @@ def main():
 
     try:
         print("Start")
-        while(True):
-            time.sleep(2)
+        while(True):                # Schleife für die Ewigkeit !!!
+            time.sleep_ms(30)
             
             #print("Run")
 
