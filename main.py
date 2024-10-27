@@ -39,6 +39,7 @@ def timer_motor_call(tim):
 def timer_blink_call(tim):
     global blink_state
     blink_state = not blink_state
+    usr_led.value(blink_state)
     led_decode(Counter_1, blink_state)
 
 # ==============================================================================
