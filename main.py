@@ -10,70 +10,83 @@ from libs.module_init import Global_Default as MyDefault
 from libs.module_init import Globel_State as MyState
 from libs.module_init import Global_Module as MyModule
 
-usr_led = Pin(25, Pin.OUT)
-input_pin = Pin(10, mode=Pin.IN, pull=Pin.PULL_UP)   # Input with a pullup resistor
+# Define Pins
+usr_led = Pin(25, Pin.OUT)                          # OnBoard LED   -> Output
+input_pin = Pin(10, mode=Pin.IN, pull=Pin.PULL_UP)  # RF-Relais     -> Input, aktiv low
 
 Counter_1 = 0
-Counter_2 = 0
 
+blink_state = False
 
 # ==============================================================================
 
-def timer_1_call(tim):
+def led_sequence():
     global Counter_1
-    # print("Timer 1 Call")
-
-    if Counter_1 == 1:
-        mg_state.led_state = True
-        usr_led.value(True)
-        MyI2C.gpio.set_output(4, True)
-        MyI2C.gpio.set_output(5, True)
+    # print("Timer 2 ", Counter_2)
+    if Counter_1 == 3:
         Counter_1 = 0
     else:
-        mg_state.led_state = False
-        usr_led.value(False)
-        MyI2C.gpio.set_output(4, False)
-        MyI2C.gpio.set_output(5, False)
         Counter_1 = Counter_1 + 1
- 
-# ==============================================================================
-
-def timer_2_call(tim):
-    global Counter_2
-    # print("Timer 2 ", Counter_2)
-    led_decode(Counter_2)
-    if Counter_2 == 3:
-        Counter_2 = 0
-    else:
-        Counter_2 = Counter_2 + 1
 
 # ==============================================================================
 
-def timer_3_call(tim):
+def timer_motor_call(tim):
     MyI2C.gpio.set_output(6, True)      # Motor 1 an
     MyI2C.gpio.set_output(7, True)      # Motor 2 an
 
 # ==============================================================================
 
-def led_decode(value):
-    # print(value)
-    if value == 0:
-        MyI2C.gpio.set_output(0, False)
-        MyI2C.gpio.set_output(1, False)
-        MyI2C.gpio.set_output(2, False)
-    if value == 1:
-        MyI2C.gpio.set_output(0, True)
-        MyI2C.gpio.set_output(1, False)
-        MyI2C.gpio.set_output(2, False)
-    if value == 2:
-        MyI2C.gpio.set_output(0, False)
-        MyI2C.gpio.set_output(1, True)
-        MyI2C.gpio.set_output(2, False)
-    if value == 3:
-        MyI2C.gpio.set_output(0, False)
-        MyI2C.gpio.set_output(1, False)
-        MyI2C.gpio.set_output(2, True)
+def timer_blink_call(tim):
+    global blink_state
+    blink_state = not blink_state
+    led_decode(Counter_1, blink_state)
 
+# ==============================================================================
+
+def led_decode(step, blink):
+    # print(value)
+    if blink:
+        if step == 0:
+            MyI2C.gpio.set_output(0, False)
+            MyI2C.gpio.set_output(1, False)
+            MyI2C.gpio.set_output(2, False)
+        if step == 1:
+            MyI2C.gpio.set_output(0, True)
+            MyI2C.gpio.set_output(1, False)
+            MyI2C.gpio.set_output(2, False)
+        if step == 2:
+            MyI2C.gpio.set_output(0, False)
+            MyI2C.gpio.set_output(1, True)
+            MyI2C.gpio.set_output(2, False)
+        if step == 3:
+            MyI2C.gpio.set_output(0, False)
+            MyI2C.gpio.set_output(1, False)
+            MyI2C.gpio.set_output(2, True)
+    else:
+        MyI2C.gpio.set_output(0, False)
+        MyI2C.gpio.set_output(1, False)
+        MyI2C.gpio.set_output(2, False)
+
+# ==============================================================================
+
+class input_state:
+    def __init__(self):
+        self.state_now  = False
+        self.state_last = False
+    
+    def read(self, value):
+        self.state_now = value
+        if self.state_now != self.state_last:
+            self.state_last = self.state_now
+            if self.state_last:
+                #print("On")
+                return True
+            else:
+                #print("Off")
+                pass
+        else:
+            pass
+        return False
 # ###############################################################################
 # ### Main - Function ->                                                      ###
 # ###############################################################################
@@ -85,26 +98,25 @@ def main():
     mg_def = MyDefault
     mg_state = MyState
 
-    #print(mg_def.led_blink_period)
-    #print(mg_def.led_step_time)
+    button_1 = input_state()
 
     MyI2C.i2c_setup()
 
-    timer_1 = Timer(-1)
-    timer_1.init(period=mg_def.led_blink_period, mode=Timer.PERIODIC, callback=timer_1_call)
-    
-    timer_2 = Timer(-1)
-    timer_2.init(period=mg_def.led_step_time, mode=Timer.PERIODIC, callback=timer_2_call)
+    timer_1 = Timer(-1)         # Blink-Timer
+    timer_1.init(period=mg_def.led_blink_period, mode=Timer.PERIODIC, callback=timer_blink_call)
 
-    timer_3 = Timer(-1)
-    timer_3.init(period=mg_def.motor_delay_time, mode=Timer.ONE_SHOT, callback=timer_2_call)
+    timer_2 = Timer(-1)         # Motor-Timer
+    timer_2.init(period=mg_def.motor_delay_time, mode=Timer.ONE_SHOT, callback=timer_motor_call)
 
     try:
         print("Start")
         while(True):                # Schleife für die Ewigkeit !!!
-            time.sleep_ms(100)
+            if button_1.read(not input_pin()):
+                #print("On")
+                led_sequence()
+            time.sleep_ms(20)
             
-            print(input_pin)
+            #print(input_pin.value())
 
     except KeyboardInterrupt:
         print("-> Keyboard Interrupt")
