@@ -11,6 +11,7 @@ from libs.module_init import Globel_State as MyState
 from libs.module_init import Global_Module as MyModule
 
 usr_led = Pin(25, Pin.OUT)
+input_pin = Pin(10, mode=Pin.IN, pull=Pin.PULL_UP)   # Input with a pullup resistor
 
 Counter_1 = 0
 Counter_2 = 0
@@ -101,9 +102,9 @@ def main():
     try:
         print("Start")
         while(True):                # Schleife für die Ewigkeit !!!
-            time.sleep_ms(30)
+            time.sleep_ms(100)
             
-            #print("Run")
+            print(input_pin)
 
     except KeyboardInterrupt:
         print("-> Keyboard Interrupt")
